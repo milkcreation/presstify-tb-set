@@ -6,12 +6,13 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 0.0.0
+ * @version 1.0.0
  */
 
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\App\Plugin;
+use tiFy\Components;
 use tiFy\Core\ScriptLoader\ScriptLoader as tFyScriptLoader;
 
 class TbSet extends Plugin
@@ -23,6 +24,8 @@ class TbSet extends Plugin
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->appAddAction('tify_components_register');
         $this->appAddAction('init');
         $this->appAddAction('theme_before_enqueue_scripts');
@@ -120,7 +123,7 @@ class TbSet extends Plugin
         tFyScriptLoader::register_style(
             'FontTb',
             [
-                'src' => self::tFyAppUrl() . 'assets/fonts/tb/styles.css',
+                'src' => self::tFyAppUrl() . '/assets/fonts/tb/styles.css',
             ]
         );
     }
