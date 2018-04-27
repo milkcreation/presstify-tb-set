@@ -27,7 +27,7 @@
   "require": {
     "composer/installers": "~1.0",
     "presstify/framework": "^1.5",
-    "presstify-plugins/admin-ui": "^1.1"
+    "presstify-plugins/admin-ui": "^1.0"
   },
   "autoload": {
     "psr-4": {
