@@ -3,7 +3,6 @@
 namespace tiFy\Plugins\TbSet\MustUse;
 
 use tiFy\App\Traits\App as TraitsApp;
-use tiFy\Plugins;
 
 class AdminUi
 {
@@ -16,7 +15,7 @@ class AdminUi
      */
     public function __construct()
     {
-        $this->appAddAction('tify_plugins_register');
+        //$this->appAddAction('tify_plugins_register');
     }
 
     /**
