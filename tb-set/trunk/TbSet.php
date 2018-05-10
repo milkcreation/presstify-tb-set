@@ -2,37 +2,34 @@
 
 /**
  * @name TbSet
- * @desc Jeu de fonctionnalités associées aux sites TigreBlanc
+ * @desc Extension PresstiFy de jeu de fonctionnalités associées aux sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 1.1.0
+ * @version 2.0.0
  */
 
 namespace tiFy\Plugins\TbSet;
 
-use tiFy\App\Plugin;
-use tiFy\Plugins;
-use tiFy\Core\ScriptLoader\ScriptLoader as tFyScriptLoader;
+use tiFy\Apps\AppController;
+use tiFy\ScriptLoader\ScriptLoader as tFyScriptLoader;
 
-class TbSet extends Plugin
+class TbSet extends AppController
 {
     /**
-     * CONSTRUCTEUR.
+     * Initialisation du controleur.
      *
      * @return void
      */
-    public function __construct()
+    public function appBoot()
     {
-        parent::__construct();
-
         $this->appAddAction('init');
         $this->appAddAction('theme_before_enqueue_scripts');
         $this->appAddAction('admin_enqueue_scripts');
     }
 
     /**
-     * Initialisation globale.
+     * Initialisation globale de Wordpress.
      *
      * @return void
      */
