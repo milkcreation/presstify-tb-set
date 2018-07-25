@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.0
+ * @version 2.0.1
  */
 
 namespace tiFy\Plugins\TbSet;
@@ -145,7 +145,7 @@ final class TbSet extends AppController
      */
     public function theme_before_enqueue_scripts()
     {
-        if ($this->appConfig('wp_enqueue_style', true)) :
+        if ($this->appConfig('wp_enqueue', true)) :
             \wp_enqueue_style('tiFyPluginTbSet');
         endif;
     }
