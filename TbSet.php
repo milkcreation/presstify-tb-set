@@ -2,23 +2,23 @@
 
 /**
  * @name TbSet
- * @desc Extension PresstiFy de jeu de fonctionnalités associées aux sites TigreBlanc.
+ * @desc Jeu de fonctionnalités associées aux sites TigreBlanc
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.1
+ * @version 1.4.1
  */
 
 namespace tiFy\Plugins\TbSet;
 
-use tiFy\Apps\AppController;
-use tiFy\Apps\AppsServiceProvider;
-use tiFy\Plugins\AdminUi\AdminUi;
+use tiFy\App\Plugin;
+use tiFy\Components;
+use tiFy\Core\ScriptLoader\ScriptLoader as tFyScriptLoader;
 
-final class TbSet extends AppController
+class TbSet extends Plugin
 {
     /**
-     * CONSTRUCTEUR
+     * CONSTRUCTEUR.
      *
      * @return void
      */
@@ -26,20 +26,21 @@ final class TbSet extends AppController
     {
         parent::__construct();
 
-        $this->appAddAction('tify_app_register');
+        $this->appAddAction('tify_components_register');
+        $this->appAddAction('init');
+        $this->appAddAction('theme_before_enqueue_scripts');
+        $this->appAddAction('admin_enqueue_scripts');
     }
 
     /**
-     * Déclaration d'application connexes
-     *
-     * @param AppsServiceProvider $app Classe de rappel du controleur de fournisseur de services.
+     * Déclaration de composants.
      *
      * @return void
      */
-    public function tify_app_register($app)
+    public function tify_components_register()
     {
-        $app->setApp(
-            AdminUi::class,
+        Components::register(
+            'AdminUI',
             [
                 'admin_bar_menu_logo' => [
                     [
@@ -113,28 +114,17 @@ final class TbSet extends AppController
     }
 
     /**
-     * Initialisation du controleur.
-     *
-     * @return void
-     */
-    public function appBoot()
-    {
-        $this->appAddAction('init');
-        $this->appAddAction('theme_before_enqueue_scripts');
-        $this->appAddAction('admin_enqueue_scripts');
-    }
-
-    /**
-     * Initialisation globale de Wordpress.
+     * Initialisation globale.
      *
      * @return void
      */
     public function init()
     {
-        \wp_register_style(
-            'tiFyPluginTbSet',
-            $this->appUrl() . '/assets/fonts/tb/styles.css',
-            current_time('timestamp')
+        tFyScriptLoader::register_style(
+            'FontTb',
+            [
+                'src' => self::tFyAppUrl() . '/assets/fonts/tb/styles.css',
+            ]
         );
     }
 
@@ -145,9 +135,7 @@ final class TbSet extends AppController
      */
     public function theme_before_enqueue_scripts()
     {
-        if ($this->appConfig('wp_enqueue', true)) :
-            \wp_enqueue_style('tiFyPluginTbSet');
-        endif;
+        \wp_enqueue_style('FontTb');
     }
 
     /**
@@ -155,8 +143,8 @@ final class TbSet extends AppController
      *
      * @return void
      */
-    public function admin_enqueue_scripts()
+    final public function admin_enqueue_scripts()
     {
-        \wp_enqueue_style('tiFyPluginTbSet');
+        \wp_enqueue_style('FontTb');
     }
 }
