@@ -6,40 +6,50 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.1
+ * @version 2.0.2
  */
 
 namespace tiFy\Plugins\TbSet;
 
-use tiFy\Apps\AppController;
-use tiFy\Apps\AppsServiceProvider;
-use tiFy\Plugins\AdminUi\AdminUi;
+use tiFy\App\Dependency\AbstractAppDependency;
 
-final class TbSet extends AppController
+/**
+ * Class TbSet
+ * @package tiFy\Plugins\TbSet
+ *
+ * Activation :
+ * ----------------------------------------------------------------------------------------------------
+ * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSet à la liste des fournisseurs de services
+ *     chargés automatiquement par l'application.
+ * ex.
+ * <?php
+ * ...
+ * use tiFy\Plugins\TbSet\TbSet;
+ * ...
+ *
+ * return [
+ *      ...
+ *      'providers' => [
+ *          ...
+ *          TbSet::class
+ *          ...
+ *      ]
+ * ];
+ *
+ * Configuration :
+ * ----------------------------------------------------------------------------------------------------
+ * Dans le dossier de config, créer le fichier social.php
+ * @see /vendor/presstify-plugins/social/Resources/config/social.php Exemple de configuration
+ */
+final class TbSet extends AbstractAppDependency
 {
     /**
-     * CONSTRUCTEUR
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function __construct()
+    public function boot()
     {
-        parent::__construct();
-
-        $this->appAddAction('tify_app_register');
-    }
-
-    /**
-     * Déclaration d'application connexes
-     *
-     * @param AppsServiceProvider $app Classe de rappel du controleur de fournisseur de services.
-     *
-     * @return void
-     */
-    public function tify_app_register($app)
-    {
-        $app->setApp(
-            AdminUi::class,
+        $adminui = array_merge(
+            config('admin-ui'),
             [
                 'admin_bar_menu_logo' => [
                     [
@@ -110,53 +120,48 @@ final class TbSet extends AppController
                 )
             ]
         );
-    }
+        config(['admin-ui' => $adminui]);
 
-    /**
-     * Initialisation du controleur.
-     *
-     * @return void
-     */
-    public function appBoot()
-    {
-        $this->appAddAction('init');
-        $this->appAddAction('theme_before_enqueue_scripts');
-        $this->appAddAction('admin_enqueue_scripts');
+        $this->app->appAddAction('init', [$this, 'init']);
+        $this->app->appAddAction('wp_enqueue_scripts', [$this, 'wp_enqueue_scripts']);
+        $this->app->appAddAction('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
     }
 
     /**
      * Initialisation globale de Wordpress.
      *
-     * @return void
+     * @return null
      */
     public function init()
     {
         \wp_register_style(
-            'tiFyPluginTbSet',
-            $this->appUrl() . '/assets/fonts/tb/styles.css',
+            'tiFyTbSet',
+            class_info($this)->getUrl() . '/Resources/dist/font/styles.css',
             current_time('timestamp')
         );
     }
 
     /**
-     * Mise en file des scripts dans l'interface utilisateur.
+     * Mise en file des scripts dans l'interface administrateur.
      *
-     * @return void
+     * @return null
      */
-    public function theme_before_enqueue_scripts()
+    public function admin_enqueue_scripts()
     {
-        if ($this->appConfig('wp_enqueue', true)) :
-            \wp_enqueue_style('tiFyPluginTbSet');
+        if (config('tb-set.admin_enqueue_scripts', true)) :
+            \wp_enqueue_style('tiFyTbSet');
         endif;
     }
 
     /**
-     * Mise en file des scripts dans l'interface administrateur.
+     * Mise en file des scripts dans l'interface utilisateur.
      *
-     * @return void
+     * @return null
      */
-    public function admin_enqueue_scripts()
+    public function wp_enqueue_scripts()
     {
-        \wp_enqueue_style('tiFyPluginTbSet');
+        if (config('tb-set.wp_enqueue_scripts', true)) :
+            \wp_enqueue_style('tiFyTbSet');
+        endif;
     }
 }
