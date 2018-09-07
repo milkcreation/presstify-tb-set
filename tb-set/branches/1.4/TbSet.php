@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 1.4.4
+ * @version 1.4.5
  */
 
 namespace tiFy\Plugins\TbSet;
@@ -136,7 +136,7 @@ final class TbSet extends AbstractAppDependency
     {
         \wp_register_style(
             'tiFyTbSet',
-            class_info($this)->getUrl() . '/Resources/dist/font/styles.css',
+            class_info($this)->getUrl() . '/Resources/assets/font/styles.css',
             current_time('timestamp')
         );
     }
