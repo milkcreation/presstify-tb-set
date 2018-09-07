@@ -9,7 +9,7 @@
     "tigreblanc"
   ],
   "homepage": "https://svn.tigreblanc.fr/presstify-plugins/tb-set",
-  "time": "2018-07-25",
+  "time": "2018-09-07",
   "license": "proprietary",
   "authors": [
     {
@@ -26,8 +26,8 @@
   ],
   "require": {
     "composer/installers": "~1.0",
-    "presstify/framework": "^2.0",
-    "presstify-plugins/admin-ui": "^2.0"
+    "presstify/framework": "^1.4",
+    "presstify-plugins/admin-ui": "^1.4"
   },
   "autoload": {
     "psr-4": {
