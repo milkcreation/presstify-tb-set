@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.3
+ * @version 2.0.4
  */
 
 namespace tiFy\Plugins\TbSet;
