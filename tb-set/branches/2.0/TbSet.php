@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.4
+ * @version 2.0.5
  */
 
 namespace tiFy\Plugins\TbSet;
@@ -165,11 +165,22 @@ final class TbSet
         add_action(
             'init',
             function () {
-                \wp_register_style(
+                wp_register_style(
                     'TbSet',
                     class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
                     current_time('timestamp')
                 );
+            }
+        );
+
+        // Balises de référencement.
+        add_action(
+            'init',
+            function () {
+                if (app()->bound('seo')) :
+                    config()->set('seo.metatag.author', 'TigreBlanc Digital');
+                    config()->set('seo.metatag.designer', 'TigreBlanc');
+                endif;
             }
         );
 
