@@ -6,42 +6,54 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.1
+ * @version 2.0.5
  */
 
 namespace tiFy\Plugins\TbSet;
 
-use tiFy\Apps\AppController;
-use tiFy\Apps\AppsServiceProvider;
-use tiFy\Plugins\AdminUi\AdminUi;
-
-final class TbSet extends AppController
+/**
+ * Class TbSet
+ * @package tiFy\Plugins\TbSet
+ *
+ * Activation :
+ * ----------------------------------------------------------------------------------------------------
+ * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSet à la liste des fournisseurs de services
+ *     chargés automatiquement par l'application.
+ * ex.
+ * <?php
+ * ...
+ * use tiFy\Plugins\TbSet\TbSet;
+ * ...
+ *
+ * return [
+ *      ...
+ *      'providers' => [
+ *          ...
+ *          TbSet::class
+ *          ...
+ *      ]
+ * ];
+ *
+ * Configuration :
+ * ----------------------------------------------------------------------------------------------------
+ * Dans le dossier de config, créer le fichier social.php
+ * @see /vendor/presstify-plugins/social/Resources/config/social.php Exemple de configuration
+ */
+final class TbSet
 {
     /**
-     * CONSTRUCTEUR
+     * CONSTRUCTEUR.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->appAddAction('tify_app_register');
-    }
-
-    /**
-     * Déclaration d'application connexes
-     *
-     * @param AppsServiceProvider $app Classe de rappel du controleur de fournisseur de services.
-     *
-     * @return void
-     */
-    public function tify_app_register($app)
-    {
-        $app->setApp(
-            AdminUi::class,
-            [
-                'admin_bar_menu_logo' => [
+        // Personnalisation du logo de la barre d'administration et des sous entrées de menu.
+        add_action(
+            'admin_bar_menu',
+            function ($wp_admin_bar) {
+                /** @var \WP_Admin_Bar $wp_admin_bar */
+                $admin_bar_menu_logo = [
                     [
                         'id'    => 'tb-logo',
                         'title' => '<span class="tigreblanc-logo" style="font-size:35px;"></span>',
@@ -103,60 +115,83 @@ final class TbSet extends AppController
                         'title'  => __('Support Technique', 'tify'),
                         'href'   => 'mailto:support@tigreblanc.fr',
                     ],
-                ],
-                'admin_footer_text'   => sprintf(
+                ];
+
+
+                $wp_admin_bar->remove_menu('wp-logo');
+
+                foreach ($admin_bar_menu_logo as $node) :
+                    if (!empty($node['group'])) :
+                        $wp_admin_bar->add_group($node);
+                    else :
+                        $wp_admin_bar->add_menu($node);
+                    endif;
+                endforeach;
+            },
+            11
+        );
+
+        // Mise en file des scripts de l'interface d'administration.
+        add_action(
+            'admin_enqueue_scripts',
+            function () {
+                if (config('tb-set.admin_enqueue_scripts', true)) :
+                    wp_enqueue_style('TbSet');
+                endif;
+            }
+        );
+
+        // Personnalisation du pied de page de l'interface d'administration.
+        add_filter(
+            'admin_footer_text',
+            function ($text = '') {
+                return sprintf(
                     __('Merci de faire de %s le partenaire de votre communication digitale', 'tify'),
-                    "<a class=\"tigreblanc-logo\" href=\"http://www.tigreblanc.fr\" style=\"font-size:40px; vertical-align:middle; display:inline-block;\" target=\"_blank\"></a>"
-                )
-            ]
+                    "<a class=\"tigreblanc-logo\" 
+                        href=\"http://www.tigreblanc.fr\" 
+                        title=\"Tigre Blanc | Agence de communication, agence web à Lille 🐯\"
+                        style=\"font-size:40px; 
+                        vertical-align:middle; 
+                        display:inline-block;\" 
+                        target=\"_blank\"
+                        >
+                    </a>"
+                );
+            },
+            999999
         );
-    }
 
-    /**
-     * Initialisation du controleur.
-     *
-     * @return void
-     */
-    public function appBoot()
-    {
-        $this->appAddAction('init');
-        $this->appAddAction('theme_before_enqueue_scripts');
-        $this->appAddAction('admin_enqueue_scripts');
-    }
-
-    /**
-     * Initialisation globale de Wordpress.
-     *
-     * @return void
-     */
-    public function init()
-    {
-        \wp_register_style(
-            'tiFyPluginTbSet',
-            $this->appUrl() . '/assets/fonts/tb/styles.css',
-            current_time('timestamp')
+        // Déclaration des scripts.
+        add_action(
+            'init',
+            function () {
+                wp_register_style(
+                    'TbSet',
+                    class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
+                    current_time('timestamp')
+                );
+            }
         );
-    }
 
-    /**
-     * Mise en file des scripts dans l'interface utilisateur.
-     *
-     * @return void
-     */
-    public function theme_before_enqueue_scripts()
-    {
-        if ($this->appConfig('wp_enqueue', true)) :
-            \wp_enqueue_style('tiFyPluginTbSet');
-        endif;
-    }
+        // Balises de référencement.
+        add_action(
+            'init',
+            function () {
+                if (app()->bound('seo')) :
+                    config()->set('seo.metatag.author', 'TigreBlanc Digital');
+                    config()->set('seo.metatag.designer', 'TigreBlanc');
+                endif;
+            }
+        );
 
-    /**
-     * Mise en file des scripts dans l'interface administrateur.
-     *
-     * @return void
-     */
-    public function admin_enqueue_scripts()
-    {
-        \wp_enqueue_style('tiFyPluginTbSet');
+        // Mise en file des scripts de l'interface utilisateur.
+        add_action(
+            'wp_enqueue_scripts',
+            function () {
+                if (config('tb-set.wp_enqueue_scripts', true)) :
+                    \wp_enqueue_style('TbSet');
+                endif;
+            }
+        );
     }
 }
