@@ -36,8 +36,8 @@ namespace tiFy\Plugins\TbSet;
  *
  * Configuration :
  * ----------------------------------------------------------------------------------------------------
- * Dans le dossier de config, créer le fichier social.php
- * @see /vendor/presstify-plugins/social/Resources/config/social.php Exemple de configuration
+ * Dans le dossier de config, créer le fichier tb-set.php
+ * @see /vendor/presstify-plugins/tb-set/Resources/config/tb-set.php Exemple de configuration
  */
 final class TbSet
 {
@@ -189,7 +189,7 @@ final class TbSet
             'wp_enqueue_scripts',
             function () {
                 if (config('tb-set.wp_enqueue_scripts', true)) :
-                    \wp_enqueue_style('TbSet');
+                    wp_enqueue_style('TbSet');
                 endif;
             }
         );
