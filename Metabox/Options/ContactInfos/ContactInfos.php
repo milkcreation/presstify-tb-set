@@ -2,9 +2,9 @@
 
 namespace tiFy\Plugins\TbSet\Metabox\Options\ContactInfos;
 
-use tiFy\Metabox\AbstractMetaboxDisplayOptionsController;
+use tiFy\Metabox\MetaboxWpOptionsController;
 
-class ContactInfos extends AbstractMetaboxDisplayOptionsController
+class ContactInfos extends MetaboxWpOptionsController
 {
     /**
      * {@inheritdoc}
