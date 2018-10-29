@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "tigreblanc";
-  src:url("fonts/tigreblanc.eot");
-  src:url("fonts/tigreblanc.eot?#iefix") format("embedded-opentype"),
-    url("fonts/tigreblanc.woff") format("woff"),
-    url("fonts/tigreblanc.ttf") format("truetype"),
-    url("fonts/tigreblanc.svg#tigreblanc") format("svg");
+  src:url("../fonts/tigreblanc.eot");
+  src:url("../fonts/tigreblanc.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/tigreblanc.woff") format("woff"),
+    url("../fonts/tigreblanc.ttf") format("truetype"),
+    url("../fonts/tigreblanc.svg#tigreblanc") format("svg");
   font-weight: normal;
   font-style: normal;
 
