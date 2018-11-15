@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.8
+ * @version 2.0.9
  */
 
 namespace tiFy\Plugins\TbSet;
@@ -17,19 +17,19 @@ namespace tiFy\Plugins\TbSet;
  *
  * Activation :
  * ----------------------------------------------------------------------------------------------------
- * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSet à la liste des fournisseurs de services
+ * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSetServiceProvider à la liste des fournisseurs de services
  *     chargés automatiquement par l'application.
  * ex.
  * <?php
  * ...
- * use tiFy\Plugins\TbSet\TbSet;
+ * use tiFy\Plugins\TbSet\TbSetServiceProvider;
  * ...
  *
  * return [
  *      ...
  *      'providers' => [
  *          ...
- *          TbSet::class
+ *          TbSetServiceProvider::class
  *          ...
  *      ]
  * ];
