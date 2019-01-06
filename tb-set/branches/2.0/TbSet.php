@@ -6,7 +6,7 @@
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.9
+ * @version 2.0.10
  */
 
 namespace tiFy\Plugins\TbSet;
@@ -183,6 +183,14 @@ final class TbSet
                 endif;
             }
         );
+        
+        // Url du logo de l'interface de connection de Wordpress.
+        add_filter('login_headerurl', function () { return home_url(); });
+
+        // Intitlulé du lien de l'interface de connection de Wordpress.
+        add_filter('login_headertitle', function () {
+            return get_bloginfo('name') . ' | ' . get_bloginfo('description');
+        });
 
         // Mise en file des scripts de l'interface utilisateur.
         add_action(
