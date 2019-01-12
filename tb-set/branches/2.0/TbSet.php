@@ -2,23 +2,27 @@
 
 /**
  * @name TbSet
- * @desc Extension PresstiFy de jeu de fonctionnalités associées aux sites TigreBlanc.
- * @author Jordy Manner <jordy@milkcreation.fr>
+ * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
+ *
  * @package presstify-plugins/tb-set
  * @namespace \tiFy\Plugins\TbSet
- * @version 2.0.10
+ *
  */
 
 namespace tiFy\Plugins\TbSet;
 
 /**
  * Class TbSet
- * @package tiFy\Plugins\TbSet
  *
- * Activation :
- * ----------------------------------------------------------------------------------------------------
- * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSetServiceProvider à la liste des fournisseurs de services
- *     chargés automatiquement par l'application.
+ * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
+ * @author Jordy Manner <jordy@milkcreation.fr>
+ * @package tiFy\Plugins\TbSet
+ * @version 2.0.11
+ *
+ * USAGE :
+ * Activation
+ * ---------------------------------------------------------------------------------------------------------------------
+ * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSetServiceProvider à la liste des fournisseurs de services.
  * ex.
  * <?php
  * ...
@@ -34,10 +38,10 @@ namespace tiFy\Plugins\TbSet;
  *      ]
  * ];
  *
- * Configuration :
- * ----------------------------------------------------------------------------------------------------
+ * Configuration
+ * ---------------------------------------------------------------------------------------------------------------------
  * Dans le dossier de config, créer le fichier tb-set.php
- * @see /vendor/presstify-plugins/tb-set/Resources/config/tb-set.php Exemple de configuration
+ * @see /vendor/presstify-plugins/tb-set/Resources/config/tb-set.php
  */
 final class TbSet
 {
