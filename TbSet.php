@@ -17,7 +17,7 @@ namespace tiFy\Plugins\TbSet;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.11
+ * @version 2.0.12
  *
  * USAGE :
  * Activation
@@ -187,9 +187,11 @@ final class TbSet
                 endif;
             }
         );
-        
+
         // Url du logo de l'interface de connection de Wordpress.
-        add_filter('login_headerurl', function () { return home_url(); });
+        add_filter('login_headerurl', function () {
+            return home_url();
+        });
 
         // Intitlulé du lien de l'interface de connection de Wordpress.
         add_filter('login_headertitle', function () {
@@ -204,6 +206,31 @@ final class TbSet
                     wp_enqueue_style('TbSet');
                 endif;
             }
+        );
+
+        //Ajout du code google analytics dans le wp_head
+        add_action(
+            'wp_head',
+            function () {
+                if ($ua_code = config('tb-set.ua_code')) :
+                    ?>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $ua_code; ?>"></script>
+                    <script>
+                        window.dataLayer = window.dataLayer || [];
+
+                        function gtag() {
+                            dataLayer.push(arguments);
+                        }
+
+                        gtag('js', new Date());
+
+                        gtag('config', <?php echo $ua_code; ?>);
+                    </script>
+                <?php
+                endif;
+            },
+            999999
         );
     }
 }

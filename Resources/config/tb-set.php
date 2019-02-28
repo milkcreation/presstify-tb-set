@@ -26,5 +26,10 @@ return [
     'coming-soon' => [
         'offline' => 'off',
         'admin'   => true
-    ]
+    ],
+
+    /**
+     * Code Google Analytics
+     */
+    'ua_code' => ''
 ];
