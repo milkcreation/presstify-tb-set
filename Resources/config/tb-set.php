@@ -29,7 +29,8 @@ return [
     ],
 
     /**
-     * Code Google Analytics
+     * Code Google Analytics.
+     * @var string
      */
     'ua_code' => ''
 ];
