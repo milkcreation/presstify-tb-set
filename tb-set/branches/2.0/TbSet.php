@@ -1,15 +1,8 @@
 <?php
 
-/**
- * @name TbSet
- * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
- *
- * @package presstify-plugins/tb-set
- * @namespace \tiFy\Plugins\TbSet
- *
- */
-
 namespace tiFy\Plugins\TbSet;
+
+use WP_Admin_Bar;
 
 /**
  * Class TbSet
@@ -17,7 +10,7 @@ namespace tiFy\Plugins\TbSet;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.12
+ * @version 2.0.13
  *
  * USAGE :
  * Activation
@@ -53,140 +46,121 @@ final class TbSet
     public function __construct()
     {
         // Personnalisation du logo de la barre d'administration et des sous entrées de menu.
-        add_action(
-            'admin_bar_menu',
-            function ($wp_admin_bar) {
-                /** @var \WP_Admin_Bar $wp_admin_bar */
-                $admin_bar_menu_logo = [
-                    [
-                        'id'    => 'tb-logo',
-                        'title' => '<span class="tigreblanc-logo" style="font-size:35px;"></span>',
-                        'href'  => 'http://www.tigreblanc.fr',
-                        'meta'  => [
-                            'title'  => __('A propos de Tigre Blanc', 'tify'),
-                            'target' => '_blank',
-                        ],
+        add_action('admin_bar_menu', function (WP_Admin_Bar $wp_admin_bar) {
+            $admin_bar_menu_logo = [
+                [
+                    'id'    => 'tb-logo',
+                    'title' => '<span class="tigreblanc-logo" style="font-size:35px;"></span>',
+                    'href'  => 'http://www.tigreblanc.fr',
+                    'meta'  => [
+                        'title'  => __('A propos de Tigre Blanc', 'tify'),
+                        'target' => '_blank',
                     ],
-                    [
-                        'id'     => 'tb-logo-site',
-                        'parent' => 'tb-logo',
-                        'title'  => __('Site Officiel de Tigre Blanc', 'tify'),
-                        'href'   => 'http://www.tigreblanc.fr',
+                ],
+                [
+                    'id'     => 'tb-logo-site',
+                    'parent' => 'tb-logo',
+                    'title'  => __('Site Officiel de Tigre Blanc', 'tify'),
+                    'href'   => 'http://www.tigreblanc.fr',
+                ],
+                [
+                    'id'     => 'tb-logo-external',
+                    'parent' => 'tb-logo',
+                    'group'  => true,
+                    'meta'   => [
+                        'class' => 'ab-sub-secondary',
                     ],
-                    [
-                        'id'     => 'tb-logo-external',
-                        'parent' => 'tb-logo',
-                        'group'  => true,
-                        'meta'   => [
-                            'class' => 'ab-sub-secondary',
-                        ],
+                ],
+                [
+                    'id'     => 'tb-logo-facebook',
+                    'parent' => 'tb-logo-external',
+                    'title'  => __('Page Facebook', 'tify'),
+                    'href'   => 'http://www.facebook.com/tigreblancdouai',
+                    'meta'   => [
+                        'target' => '_blank',
                     ],
-                    [
-                        'id'     => 'tb-logo-facebook',
-                        'parent' => 'tb-logo-external',
-                        'title'  => __('Page Facebook', 'tify'),
-                        'href'   => 'http://www.facebook.com/tigreblancdouai',
-                        'meta'   => [
-                            'target' => '_blank',
-                        ],
+                ],
+                [
+                    'id'     => 'tb-logo-twitter',
+                    'parent' => 'tb-logo-external',
+                    'title'  => __('Compte Twitter', 'tify'),
+                    'href'   => 'https://twitter.com/TigreBlancDouai',
+                    'meta'   => [
+                        'target' => '_blank',
                     ],
-                    [
-                        'id'     => 'tb-logo-twitter',
-                        'parent' => 'tb-logo-external',
-                        'title'  => __('Compte Twitter', 'tify'),
-                        'href'   => 'https://twitter.com/TigreBlancDouai',
-                        'meta'   => [
-                            'target' => '_blank',
-                        ],
+                ],
+                [
+                    'id'     => 'tb-logo-mailing',
+                    'parent' => 'tb-logo',
+                    'group'  => true,
+                    'meta'   => [
+                        'class' => 'ab-sub-primary',
                     ],
-                    [
-                        'id'     => 'tb-logo-mailing',
-                        'parent' => 'tb-logo',
-                        'group'  => true,
-                        'meta'   => [
-                            'class' => 'ab-sub-primary',
-                        ],
-                    ],
-                    [
-                        'id'     => 'tb-logo-mailing-contact',
-                        'parent' => 'tb-logo-mailing',
-                        'title'  => __('Contact l\'agence', 'tify'),
-                        'href'   => 'mailto:contact@tigreblanc.fr',
-                    ],
-                    [
-                        'id'     => 'tb-logo-mailing-support',
-                        'parent' => 'tb-logo-mailing',
-                        'title'  => __('Support Technique', 'tify'),
-                        'href'   => 'mailto:support@tigreblanc.fr',
-                    ],
-                ];
+                ],
+                [
+                    'id'     => 'tb-logo-mailing-contact',
+                    'parent' => 'tb-logo-mailing',
+                    'title'  => __('Contact l\'agence', 'tify'),
+                    'href'   => 'mailto:contact@tigreblanc.fr',
+                ],
+                [
+                    'id'     => 'tb-logo-mailing-support',
+                    'parent' => 'tb-logo-mailing',
+                    'title'  => __('Support Technique', 'tify'),
+                    'href'   => 'mailto:support@tigreblanc.fr',
+                ],
+            ];
 
 
-                $wp_admin_bar->remove_menu('wp-logo');
+            $wp_admin_bar->remove_menu('wp-logo');
 
-                foreach ($admin_bar_menu_logo as $node) :
-                    if (!empty($node['group'])) :
-                        $wp_admin_bar->add_group($node);
-                    else :
-                        $wp_admin_bar->add_menu($node);
-                    endif;
-                endforeach;
-            },
-            11
-        );
+            foreach ($admin_bar_menu_logo as $node) :
+                if (!empty($node['group'])) :
+                    $wp_admin_bar->add_group($node);
+                else :
+                    $wp_admin_bar->add_menu($node);
+                endif;
+            endforeach;
+        }, 11);
 
         // Mise en file des scripts de l'interface d'administration.
-        add_action(
-            'admin_enqueue_scripts',
-            function () {
-                if (config('tb-set.admin_enqueue_scripts', true)) :
-                    wp_enqueue_style('TbSet');
-                endif;
-            }
-        );
+        add_action('admin_enqueue_scripts', function () {
+            if (config('tb-set.admin_enqueue_scripts', true)) :
+                wp_enqueue_style('TbSet');
+            endif;
+        });
 
         // Personnalisation du pied de page de l'interface d'administration.
-        add_filter(
-            'admin_footer_text',
-            function ($text = '') {
-                return sprintf(
-                    __('Merci de faire de %s le partenaire de votre communication digitale', 'tify'),
-                    "<a class=\"tigreblanc-logo\" 
-                        href=\"http://www.tigreblanc.fr\" 
-                        title=\"Tigre Blanc | Agence de communication, agence web à Lille 🐯\"
-                        style=\"font-size:40px; 
-                        vertical-align:middle; 
-                        display:inline-block;\" 
-                        target=\"_blank\"
-                        >
-                    </a>"
-                );
-            },
-            999999
-        );
+        add_filter('admin_footer_text', function ($text = '') {
+            return sprintf(
+                __('Merci de faire de %s le partenaire de votre communication digitale', 'tify'),
+                "<a class=\"tigreblanc-logo\" 
+                    href=\"http://www.tigreblanc.fr\" 
+                    title=\"Tigre Blanc | Agence de communication, agence web à Lille 🐯\"
+                    style=\"font-size:40px; 
+                    vertical-align:middle; 
+                    display:inline-block;\" 
+                    target=\"_blank\"
+                    >
+                </a>"
+            );
+        }, 999999);
 
-        // Déclaration des scripts.
-        add_action(
-            'init',
-            function () {
-                wp_register_style(
-                    'TbSet',
-                    class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
-                    current_time('timestamp')
-                );
-            }
-        );
+        // Initialisation de Wordpress.
+        add_action('init', function () {
+            // Déclaration des scripts.
+            wp_register_style(
+                'TbSet',
+                class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
+                current_time('timestamp')
+            );
 
-        // Balises de référencement.
-        add_action(
-            'init',
-            function () {
-                if (app()->bound('seo')) :
-                    config()->set('seo.metatag.author', 'TigreBlanc Digital');
-                    config()->set('seo.metatag.designer', 'TigreBlanc');
-                endif;
-            }
-        );
+            // Balises de référencement.
+            if (app()->bound('seo')) :
+                config()->set('seo.metatag.author', 'TigreBlanc Digital');
+                config()->set('seo.metatag.designer', 'TigreBlanc');
+            endif;
+        });
 
         // Url du logo de l'interface de connection de Wordpress.
         add_filter('login_headerurl', function () {
@@ -199,38 +173,19 @@ final class TbSet
         });
 
         // Mise en file des scripts de l'interface utilisateur.
-        add_action(
-            'wp_enqueue_scripts',
-            function () {
-                if (config('tb-set.wp_enqueue_scripts', true)) :
-                    wp_enqueue_style('TbSet');
-                endif;
-            }
-        );
+        add_action('wp_enqueue_scripts', function () {
+            if (config('tb-set.wp_enqueue_scripts', true)) :
+                wp_enqueue_style('TbSet');
+            endif;
+        });
 
         //Ajout du code google analytics dans le wp_head
-        add_action(
-            'wp_head',
-            function () {
-                if ($ua_code = config('tb-set.ua_code')) :
-                    ?>
-                    <!-- Global site tag (gtag.js) - Google Analytics -->
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $ua_code; ?>"></script>
-                    <script>
-                        window.dataLayer = window.dataLayer || [];
-
-                        function gtag() {
-                            dataLayer.push(arguments);
-                        }
-
-                        gtag('js', new Date());
-
-                        gtag('config', <?php echo $ua_code; ?>);
-                    </script>
-                <?php
-                endif;
-            },
-            999999
-        );
+        add_action('wp_head', function () {
+            if ($ua = config('tb-set.ua-code')) :
+                echo view()
+                    ->setDirectory(__DIR__ . '/Resources/views/ua-code')
+                    ->render('ua-code', compact('ua'));
+            endif;
+        }, 999999);
     }
 }

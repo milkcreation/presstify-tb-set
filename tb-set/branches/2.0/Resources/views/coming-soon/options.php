@@ -23,5 +23,3 @@
     </tr>
     </tbody>
 </table>
-<?php
-
