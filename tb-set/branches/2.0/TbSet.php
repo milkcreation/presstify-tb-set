@@ -10,7 +10,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.13
+ * @version 2.0.14
  *
  * USAGE :
  * Activation
@@ -156,7 +156,7 @@ final class TbSet
             );
 
             // Balises de référencement.
-            if (app()->bound('seo')) :
+            if (app()->has('seo')) :
                 config()->set('seo.metatag.author', 'TigreBlanc Digital');
                 config()->set('seo.metatag.designer', 'TigreBlanc');
             endif;
