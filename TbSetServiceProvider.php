@@ -3,28 +3,42 @@
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\App\Container\AppServiceProvider;
-use tiFy\Plugins\TbSet\TbSet;
 use tiFy\Plugins\TbSet\ComingSoon\ComingSoon;
 
 class TbSetServiceProvider extends AppServiceProvider
 {
     /**
-     * {@inheritdoc}
+     * Liste des noms de qualification des services fournis.
+     * {@internal Permet le chargement différé des services qualifié.}
+     * @var string[]
+     */
+    protected $provides = [
+        'tb-set',
+        'tb-set.coming-soon'
+    ];
+
+    /**
+     * @inheritdoc
      */
     public function boot()
     {
-        $this->app->singleton(
-            'tb-set',
-            function () {
-                return new TbSet();
-            }
-        )->build();
+        add_action('after_setup_theme', function () {
+            $this->getContainer()->get('tb-set');
+            $this->getContainer()->get('tb-set.coming-soon');
+        });
+    }
 
-        $this->app->singleton(
-            'tb-set.coming-soon',
-            function () {
-                return new ComingSoon();
-            }
-        )->build();
+    /**
+     * @inheritdoc
+     */
+    public function register()
+    {
+        $this->getContainer()->share('tb-set', function () {
+            return new TbSet();
+        });
+
+        $this->getContainer()->share('tb-set.coming-soon', function () {
+            return new ComingSoon();
+        });
     }
 }
