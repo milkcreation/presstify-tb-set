@@ -2,10 +2,10 @@
 
 namespace tiFy\Plugins\TbSet;
 
-use tiFy\App\Container\AppServiceProvider;
+use tiFy\Container\ServiceProvider;
 use tiFy\Plugins\TbSet\ComingSoon\ComingSoon;
 
-class TbSetServiceProvider extends AppServiceProvider
+class TbSetServiceProvider extends ServiceProvider
 {
     /**
      * Liste des noms de qualification des services fournis.
