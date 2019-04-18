@@ -34,7 +34,7 @@ class TbSetServiceProvider extends ServiceProvider
     public function register()
     {
         $this->getContainer()->share('tb-set', function () {
-            return new TbSet();
+            return new TbSet($this->getContainer()->get('app'));
         });
 
         $this->getContainer()->share('tb-set.coming-soon', function () {

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Arr;
 
-if (!function_exists('contact_infos')) :
+if (!function_exists('contact_infos')) {
     /**
      * Récupération de la liste des informations de contact ou d'un attributs particulier.
      *
@@ -21,4 +21,4 @@ if (!function_exists('contact_infos')) :
             return Arr::get($contact_infos, $key, $default);
         endif;
     }
-endif;
+}
