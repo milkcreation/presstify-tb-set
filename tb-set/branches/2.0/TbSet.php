@@ -2,6 +2,7 @@
 
 namespace tiFy\Plugins\TbSet;
 
+use App\App;
 use WP_Admin_Bar;
 
 /**
@@ -10,7 +11,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.15
+ * @version 2.0.16
  *
  * USAGE :
  * Activation
@@ -39,12 +40,28 @@ use WP_Admin_Bar;
 final class TbSet
 {
     /**
+     * Instance de l'application
+     * @var App
+     */
+    protected $app;
+
+    /**
      * CONSTRUCTEUR.
+     *
+     * @param App $app Instance de l'application.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(App $app)
     {
+        $this->app = $app;
+
+        // Balises de site.
+        $this->app->theme([
+            'tag.meta.author'   => 'TigreBlanc Digital',
+            'tag.meta.designer' => 'TigreBlanc'
+        ]);
+
         // Personnalisation du logo de la barre d'administration et des sous entrées de menu.
         add_action('admin_bar_menu', function (WP_Admin_Bar $wp_admin_bar) {
             $admin_bar_menu_logo = [
@@ -111,23 +128,22 @@ final class TbSet
                 ],
             ];
 
-
             $wp_admin_bar->remove_menu('wp-logo');
 
-            foreach ($admin_bar_menu_logo as $node) :
-                if (!empty($node['group'])) :
+            foreach ($admin_bar_menu_logo as $node) {
+                if (!empty($node['group'])) {
                     $wp_admin_bar->add_group($node);
-                else :
+                } else {
                     $wp_admin_bar->add_menu($node);
-                endif;
-            endforeach;
+                }
+            }
         }, 11);
 
         // Mise en file des scripts de l'interface d'administration.
         add_action('admin_enqueue_scripts', function () {
-            if (config('tb-set.admin_enqueue_scripts', true)) :
+            if (config('tb-set.admin_enqueue_scripts', true)) {
                 wp_enqueue_style('TbSet');
-            endif;
+            }
         });
 
         // Personnalisation du pied de page de l'interface d'administration.
@@ -154,12 +170,6 @@ final class TbSet
                 class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
                 current_time('timestamp')
             );
-
-            // Balises de référencement.
-            if (app()->has('seo')) :
-                config()->set('seo.metatag.author', 'TigreBlanc Digital');
-                config()->set('seo.metatag.designer', 'TigreBlanc');
-            endif;
         });
 
         // Url du logo de l'interface de connection de Wordpress.
@@ -174,18 +184,16 @@ final class TbSet
 
         // Mise en file des scripts de l'interface utilisateur.
         add_action('wp_enqueue_scripts', function () {
-            if (config('tb-set.wp_enqueue_scripts', true)) :
+            if (config('tb-set.wp_enqueue_scripts', true)) {
                 wp_enqueue_style('TbSet');
-            endif;
+            }
         });
 
         //Ajout du code google analytics dans le wp_head
         add_action('wp_head', function () {
-            if ($ua = config('tb-set.ua-code')) :
-                echo view()
-                    ->setDirectory(__DIR__ . '/Resources/views/ua-code')
-                    ->render('ua-code', compact('ua'));
-            endif;
+            if ($ua = config('tb-set.ua-code')) {
+                echo view()->setDirectory(__DIR__ . '/Resources/views/ua-code')->render('ua-code', compact('ua'));
+            }
         }, 999999);
     }
 }
