@@ -11,7 +11,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.16
+ * @version 2.0.17
  *
  * USAGE :
  * Activation
@@ -178,7 +178,7 @@ final class TbSet
         });
 
         // Intitlulé du lien de l'interface de connection de Wordpress.
-        add_filter('login_headertitle', function () {
+        add_filter('login_headertext', function () {
             return get_bloginfo('name') . ' | ' . get_bloginfo('description');
         });
 
