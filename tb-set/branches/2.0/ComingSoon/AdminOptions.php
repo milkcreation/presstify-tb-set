@@ -31,12 +31,9 @@ class AdminOptions extends MetaboxWpOptionsController
      */
     public function load($wp_screen)
     {
-        add_action(
-            'admin_enqueue_scripts',
-            function () {
-                field('toggle-switch')->enqueue_scripts();
-            }
-        );
+        add_action('admin_enqueue_scripts', function () {
+            field('toggle-switch')->enqueue();
+        });
     }
 
     /**
