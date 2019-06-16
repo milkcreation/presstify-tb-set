@@ -1,12 +1,12 @@
-$tb-font-path:        "../fonts" !default;
+$tb-font-path: "../fonts" !default;
 
 @font-face {
   font-family: "tigreblanc";
-  src:url("#{$tb-font-path}/tigreblanc.eot");
-  src:url("#{$tb-font-path}/tigreblanc.eot?#iefix") format("embedded-opentype"),
-    url("#{$tb-font-path}/tigreblanc.woff") format("woff"),
-    url("#{$tb-font-path}/tigreblanc.ttf") format("truetype"),
-    url("#{$tb-font-path}/tigreblanc.svg#tigreblanc") format("svg");
+  src: url("#{$tb-font-path}/tigreblanc.eot");
+  src: url("#{$tb-font-path}/tigreblanc.eot?#iefix") format("embedded-opentype"),
+  url("#{$tb-font-path}/tigreblanc.woff") format("woff"),
+  url("#{$tb-font-path}/tigreblanc.ttf") format("truetype"),
+  url("#{$tb-font-path}/tigreblanc.svg#tigreblanc") format("svg");
   font-weight: normal;
   font-style: normal;
 
@@ -41,9 +41,11 @@ $tb-font-path:        "../fonts" !default;
 .tigreblanc-logo-cadre:before {
   content: "a";
 }
+
 .tigreblanc-logo:before {
   content: "b";
 }
+
 .tigreblanc-logo-carre:before {
   content: "c";
 }
