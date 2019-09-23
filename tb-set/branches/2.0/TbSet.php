@@ -6,12 +6,10 @@ use App\App;
 use WP_Admin_Bar;
 
 /**
- * Class TbSet
- *
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.20
+ * @version 2.0.21
  *
  * USAGE :
  * Activation
