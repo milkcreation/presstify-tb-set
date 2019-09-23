@@ -1,6 +1,6 @@
 {
   "name": "presstify-plugins/tb-set",
-  "description": "Extension PresstiFy de jeu de fonctionnalités associées aux sites TigreBlanc.",
+  "description": "Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.",
   "type": "presstify-plugin",
   "keywords": [
     "presstify",
@@ -9,7 +9,7 @@
     "tigreblanc"
   ],
   "homepage": "https://svn.tigreblanc.fr/presstify-plugins/tb-set",
-  "time": "2018-07-25",
+  "time": "2019-09-23",
   "license": "proprietary",
   "authors": [
     {
@@ -26,10 +26,12 @@
   ],
   "require": {
     "composer/installers": "~1.0",
-    "presstify/framework": "^2.0",
-    "presstify-plugins/admin-ui": "^2.0"
+    "presstify/framework": "2.0.*"
   },
   "autoload": {
+    "files": [
+      "helpers.php"
+    ],
     "psr-4": {
       "tiFy\\Plugins\\TbSet\\": ""
     }
@@ -37,8 +39,9 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config" : {
+    "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true,
-    "optimize-autoloader": true
+    "secure-http": false,
+    "sort-packages": true
   }
 }
