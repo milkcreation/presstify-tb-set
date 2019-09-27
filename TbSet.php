@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace tiFy\Plugins\TbSet;
 
@@ -9,7 +9,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.21
+ * @version 2.0.22
  *
  * USAGE :
  * Activation
@@ -35,7 +35,7 @@ use WP_Admin_Bar;
  * Dans le dossier de config, créer le fichier tb-set.php
  * @see /vendor/presstify-plugins/tb-set/Resources/config/tb-set.php
  */
-final class TbSet
+class TbSet
 {
     /**
      * Instance de l'application
