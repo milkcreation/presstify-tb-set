@@ -1,9 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\Container\ServiceProvider;
-use tiFy\Plugins\TbSet\ComingSoon\ComingSoon;
+use tiFy\Plugins\TbSet\{
+    Metaboxes\ComingSoon as ComingSoonMetabox,
+    Metaboxes\ContactInfos as ContactInfosMetabox
+};
+use tiFy\Support\Proxy\Metabox;
 
 class TbSetServiceProvider extends ServiceProvider
 {
@@ -18,20 +22,23 @@ class TbSetServiceProvider extends ServiceProvider
     ];
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function boot()
+    public function boot(): void
     {
         add_action('after_setup_theme', function () {
             $this->getContainer()->get('tb-set');
             $this->getContainer()->get('tb-set.coming-soon');
+
+            Metabox::registerDriver('tb-set.coming-soon', new ComingSoonMetabox());
+            Metabox::registerDriver('tb-set.contact-infos', new ContactInfosMetabox());
         });
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function register()
+    public function register(): void
     {
         $this->getContainer()->share('tb-set', function () {
             return new TbSet($this->getContainer()->get('app'));
