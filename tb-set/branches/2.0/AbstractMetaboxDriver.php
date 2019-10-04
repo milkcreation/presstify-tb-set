@@ -2,6 +2,7 @@
 
 namespace tiFy\Plugins\TbSet;
 
+use tiFy\Contracts\Metabox\MetaboxDriver as MetaboxDriverContract;
 use tiFy\Metabox\MetaboxDriver;
 
 abstract class AbstractMetaboxDriver extends MetaboxDriver
@@ -9,12 +10,12 @@ abstract class AbstractMetaboxDriver extends MetaboxDriver
     /**
      * @inheritDoc
      */
-    public function defaults(): array
+    public function parse(): MetaboxDriverContract
     {
-        return array_merge(parent::defaults(), [
-            'viewer' => [
-                'directory' => __DIR__ . '/Resources/views/metaboxes/' . class_info($this)->getKebabName()
-            ]
-        ]);
+        $this->set('viewer.directory', __DIR__ . '/Resources/views/metaboxes/' . class_info($this)->getKebabName());
+
+        parent::parse();
+
+        return $this;
     }
 }

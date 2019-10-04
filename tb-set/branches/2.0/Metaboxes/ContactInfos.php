@@ -13,8 +13,7 @@ class ContactInfos extends AbstractMetaboxDriver
     {
         return array_merge(parent::defaults(), [
             'name'  => 'contact_infos',
-            'title' =>  __('Informations de contact', 'tify'),
-            'value' => get_option('contact_infos')
+            'title' =>  __('Informations de contact', 'tify')
         ]);
     }
 }
