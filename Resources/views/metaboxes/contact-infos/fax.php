@@ -4,7 +4,7 @@
  */
 ?>
 <tr>
-    <th scope="row"><?php _e('Numéro de fax', 'theme'); ?></th>
+    <th scope="row"><?php _e('Numéro de fax', 'tify'); ?></th>
     <td>
         <?php echo field('text', [
             'attrs' => [

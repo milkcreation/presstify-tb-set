@@ -4,7 +4,7 @@
  */
 ?>
 <tr>
-    <th scope="row"><?php _e('Adresse mail', 'theme'); ?></th>
+    <th scope="row"><?php _e('Adresse mail', 'tify'); ?></th>
     <td>
         <?php echo field('text', [
             'attrs' => [
