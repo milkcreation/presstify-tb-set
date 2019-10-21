@@ -4,7 +4,7 @@
  */
 ?>
 <tr>
-    <th scope="row"><?php _e('Ville', 'theme'); ?></th>
+    <th scope="row"><?php _e('Ville', 'tify'); ?></th>
     <td>
         <?php echo field('text', [
             'attrs' => [

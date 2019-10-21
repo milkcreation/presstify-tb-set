@@ -4,7 +4,7 @@
  */
 ?>
 <tr>
-    <th scope="row"><?php _e('Code postal', 'theme'); ?></th>
+    <th scope="row"><?php _e('Code postal', 'tify'); ?></th>
     <td>
         <?php echo field('text', [
             'attrs' => [
