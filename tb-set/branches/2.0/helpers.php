@@ -13,12 +13,12 @@ if (!function_exists('contact_infos')) {
      */
     function contact_infos($key = null, $default = null)
     {
-        if (!$contact_infos = get_option('contact_infos')) :
+        if (!$contact_infos = get_option('contact_infos')) {
             return $default;
-        elseif (is_null($key)) :
+        } elseif (is_null($key)) {
             return $contact_infos;
-        else :
+        } else {
             return Arr::get($contact_infos, $key, $default);
-        endif;
+        }
     }
 }
