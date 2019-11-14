@@ -41,8 +41,24 @@
 .tigreblanc-logo-cadre:before {
   content: "a";
 }
+
+#wpadminbar .tigreblanc-logo {
+  width: 35px;
+  height: 35px;
+  display: block;
+  position: relative;
+}
+
+#wpfooter .tigreblanc-logo {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+}
+
 .tigreblanc-logo:before {
   content: "b";
+  position: absolute;
 }
 .tigreblanc-logo-carre:before {
   content: "c";
