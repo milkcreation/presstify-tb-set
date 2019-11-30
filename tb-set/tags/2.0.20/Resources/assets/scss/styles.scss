@@ -44,8 +44,27 @@ $tb-font-path: "../fonts" !default;
 
 .tigreblanc-logo:before {
   content: "b";
+  position: absolute;
 }
 
 .tigreblanc-logo-carre:before {
   content: "c";
+}
+
+#wpadminbar .tigreblanc-logo {
+  width: 35px;
+  height: 35px;
+  display: block;
+  position: relative;
+}
+
+#wpfooter .tigreblanc-logo {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+}
+
+#wpfooter p {
+  line-height: 40px;
 }
