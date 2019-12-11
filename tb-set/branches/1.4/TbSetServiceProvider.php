@@ -30,8 +30,13 @@ class TbSetServiceProvider extends ServiceProvider
             $this->getContainer()->get('tb-set');
             $this->getContainer()->get('tb-set.coming-soon');
 
-            Metabox::registerDriver('tb-set.coming-soon', new ComingSoonMetabox());
-            Metabox::registerDriver('tb-set.contact-infos', new ContactInfosMetabox());
+            if (config('tb-set.coming-soon.admin')) {
+                Metabox::registerDriver('tb-set.coming-soon', new ComingSoonMetabox());
+            }
+
+            if (config('tb-set.contact-infos.admin')) {
+                Metabox::registerDriver('tb-set.contact-infos', new ContactInfosMetabox());
+            }
         });
     }
 
