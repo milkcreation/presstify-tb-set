@@ -9,7 +9,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.28
+ * @version 2.0.29
  *
  * USAGE :
  * Activation
