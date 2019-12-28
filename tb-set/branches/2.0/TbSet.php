@@ -3,13 +3,14 @@
 namespace tiFy\Plugins\TbSet;
 
 use App\App;
+use tiFy\Support\Proxy\View;
 use WP_Admin_Bar;
 
 /**
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.29
+ * @version 2.0.30
  *
  * USAGE :
  * Activation
@@ -137,20 +138,13 @@ class TbSet
             }
         }, 11);
 
-        // Mise en file des scripts de l'interface d'administration.
-        add_action('admin_enqueue_scripts', function () {
-            if (config('tb-set.admin_enqueue_scripts', true)) {
-                wp_enqueue_style('TbSet');
-            }
-        });
-
         // Personnalisation du pied de page de l'interface d'administration.
-        add_filter('admin_footer_text', function ($text = '') {
+        add_filter('admin_footer_text', function () {
             return sprintf(
                 __('Merci de faire de %s le partenaire de votre communication digitale', 'tify'),
                 "<a class=\"tigreblanc-logo\" 
                     href=\"http://www.tigreblanc.fr\" 
-                    title=\"Tigre Blanc | Agence de communication, agence web à Lille 🐯\"
+                    title=\"Tigre Blanc | Agence de communication, agence web à Douai\"
                     style=\"font-size:40px; 
                     vertical-align:middle; 
                     display:inline-block;\" 
@@ -160,19 +154,9 @@ class TbSet
             );
         }, 999999);
 
-        // Initialisation de Wordpress.
-        add_action('init', function () {
-            // Déclaration des scripts.
-            wp_register_style(
-                'TbSet',
-                class_info($this)->getUrl() . '/Resources/assets/css/styles.css',
-                current_time('timestamp')
-            );
-        });
-
         // Url du logo de l'interface de connection de Wordpress.
         add_filter('login_headerurl', function () {
-            return home_url();
+            return home_url('/');
         });
 
         // Intitlulé du lien de l'interface de connection de Wordpress.
@@ -180,17 +164,11 @@ class TbSet
             return get_bloginfo('name') . ' | ' . get_bloginfo('description');
         });
 
-        // Mise en file des scripts de l'interface utilisateur.
-        add_action('wp_enqueue_scripts', function () {
-            if (config('tb-set.wp_enqueue_scripts', true)) {
-                wp_enqueue_style('TbSet');
-            }
-        });
-
         //Ajout du code google analytics dans le wp_head
         add_action('wp_head', function () {
             if ($ua = config('tb-set.ua-code')) {
-                echo view()->setDirectory(__DIR__ . '/Resources/views/ua-code')->render('ua-code', compact('ua'));
+                echo View::getPlatesEngine()->setDirectory(__DIR__ . '/Resources/views/ua-code')
+                    ->render('index', compact('ua'));
             }
         }, 999999);
     }

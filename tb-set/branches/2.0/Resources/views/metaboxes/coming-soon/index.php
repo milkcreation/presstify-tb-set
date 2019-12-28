@@ -1,6 +1,6 @@
 <?php
 /**
- * @var tiFy\Contracts\View\ViewController
+ * @var tiFy\Contracts\Metabox\MetaboxView $this
  */
 ?>
 <table class="form-table">
