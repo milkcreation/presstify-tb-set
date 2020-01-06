@@ -3,11 +3,6 @@
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\Container\ServiceProvider;
-use tiFy\Plugins\TbSet\{
-    Metaboxes\ComingSoon as ComingSoonMetabox,
-    Metaboxes\ContactInfos as ContactInfosMetabox
-};
-use tiFy\Support\Proxy\Metabox;
 
 class TbSetServiceProvider extends ServiceProvider
 {
@@ -27,11 +22,8 @@ class TbSetServiceProvider extends ServiceProvider
     public function boot(): void
     {
         add_action('after_setup_theme', function () {
-            $this->getContainer()->get('tb-set');
             $this->getContainer()->get('tb-set.coming-soon');
-
-            Metabox::registerDriver('tb-set.coming-soon', new ComingSoonMetabox());
-            Metabox::registerDriver('tb-set.contact-infos', new ContactInfosMetabox());
+            $this->getContainer()->get('tb-set.contact-infos');
         });
     }
 
@@ -45,7 +37,11 @@ class TbSetServiceProvider extends ServiceProvider
         });
 
         $this->getContainer()->share('tb-set.coming-soon', function () {
-            return new ComingSoon();
+            return new ComingSoon($this->getContainer()->get('tb-set'));
+        });
+
+        $this->getContainer()->share('tb-set.contact-infos', function () {
+            return new ContactInfos($this->getContainer()->get('tb-set'));
         });
     }
 }
