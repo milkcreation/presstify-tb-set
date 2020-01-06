@@ -16,4 +16,14 @@ class ContactInfos extends AbstractMetaboxDriver
             'title' =>  __('Informations de contact', 'tify')
         ]);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function defaultParams(): array
+    {
+        return [
+            'fields' => ['company', 'address1', 'address2', 'address3', 'city', 'postcode', 'phone', 'fax', 'mail']
+        ];
+    }
 }

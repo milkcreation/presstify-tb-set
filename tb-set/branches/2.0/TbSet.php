@@ -2,7 +2,8 @@
 
 namespace tiFy\Plugins\TbSet;
 
-use App\App;
+use Psr\Container\ContainerInterface as Container;
+use tiFy\Plugins\TbSet\Contracts\TbSet as TbSetContract;
 use tiFy\Support\Proxy\View;
 use WP_Admin_Bar;
 
@@ -10,7 +11,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.30
+ * @version 2.0.31
  *
  * USAGE :
  * Activation
@@ -36,30 +37,32 @@ use WP_Admin_Bar;
  * Dans le dossier de config, créer le fichier tb-set.php
  * @see /vendor/presstify-plugins/tb-set/Resources/config/tb-set.php
  */
-class TbSet
+class TbSet implements TbSetContract
 {
     /**
      * Instance de l'application
-     * @var App
+     * @var Container
      */
-    protected $app;
+    protected $container;
 
     /**
      * CONSTRUCTEUR.
      *
-     * @param App $app Instance de l'application.
+     * @param Container|null $container Instance du conteneur d'injection de dépendances.
      *
      * @return void
      */
-    public function __construct(App $app)
+    public function __construct(?Container $container)
     {
-        $this->app = $app;
+        $this->container = $container;
 
         // Balises de site.
-        $this->app->theme([
-            'tag.meta.author'   => 'TigreBlanc Digital',
-            'tag.meta.designer' => 'TigreBlanc'
-        ]);
+        if ($app = $this->getContainer()) {
+            $app->theme([
+                'tag.meta.author'   => 'TigreBlanc Digital',
+                'tag.meta.designer' => 'TigreBlanc'
+            ]);
+        }
 
         // Personnalisation du logo de la barre d'administration et des sous entrées de menu.
         add_action('admin_bar_menu', function (WP_Admin_Bar $wp_admin_bar) {
@@ -171,5 +174,29 @@ class TbSet
                     ->render('index', compact('ua'));
             }
         }, 999999);
+    }
+
+    /**
+     * Récupération du conteneur d'injection de dépendances.
+     *
+     * @return Container|null
+     */
+    public function getContainer(): ?Container
+    {
+        return $this->container;
+    }
+
+    /**
+     * Définition du conteneur d'injection de dépendances.
+     *
+     * @param Container $container
+     *
+     * @return static
+     */
+    public function setContainer(Container $container): TbSetContract
+    {
+        $this->container = $container;
+
+        return $this;
     }
 }

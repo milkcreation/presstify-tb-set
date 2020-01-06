@@ -7,7 +7,16 @@ return [
      */
     'coming-soon' => [
         'offline' => 'off',
-        'admin'   => true
+        'admin'   => false
+    ],
+
+    /**
+     * Activation du réglages des informations de contact.
+     * @var boolean|array
+     */
+    'contact-infos' => [
+        'fields'  => [],
+        'admin'   => false
     ],
 
     /**

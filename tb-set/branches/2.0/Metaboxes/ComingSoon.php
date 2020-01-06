@@ -2,7 +2,6 @@
 
 namespace tiFy\Plugins\TbSet\Metaboxes;
 
-use tiFy\Contracts\Metabox\MetaboxDriver;
 use tiFy\Plugins\TbSet\AbstractMetaboxDriver;
 
 class ComingSoon extends AbstractMetaboxDriver
@@ -16,27 +15,4 @@ class ComingSoon extends AbstractMetaboxDriver
             'title' =>  __('Accès au site', 'tify')
         ]);
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function parse(): MetaboxDriver
-    {
-        parent::parse();
-
-        $this->set([
-            'offline' => config('tb-set.coming-soon.offline')
-        ]);
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function settings()
-    {
-        return ['tbset_comingsoon_offline'];
-    }
-
 }

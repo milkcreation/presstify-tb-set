@@ -11,8 +11,8 @@
         </th>
         <td>
             <?php echo field('toggle-switch', [
-                'name'  => 'tbset_comingsoon_offline',
-                'value' => $this->get('offline')
+                'name'  => $this->name(),
+                'value' => $this->value()
             ]); ?>
         </td>
     </tr>
