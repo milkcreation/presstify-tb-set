@@ -12,7 +12,7 @@ abstract class AbstractMetaboxDriver extends MetaboxDriver
      */
     public function parse(): MetaboxDriverContract
     {
-        $this->set('viewer.directory', __DIR__ . '/Resources/views/metaboxes/' . class_info($this)->getKebabName());
+        $this->set('viewer.directory', __DIR__ . '/Resources/views/metaboxes/' . $this->alias());
 
         parent::parse();
 

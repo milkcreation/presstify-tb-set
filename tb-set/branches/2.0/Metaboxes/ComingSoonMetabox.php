@@ -4,8 +4,13 @@ namespace tiFy\Plugins\TbSet\Metaboxes;
 
 use tiFy\Plugins\TbSet\AbstractMetaboxDriver;
 
-class ComingSoon extends AbstractMetaboxDriver
+class ComingSoonMetabox extends AbstractMetaboxDriver
 {
+    /**
+     * @inheritDoc
+     */
+    protected $alias = 'coming-soon';
+
     /**
      * @inheritDoc
      */

@@ -3,7 +3,7 @@
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\Plugins\TbSet\Contracts\TbSet;
-use tiFy\Plugins\TbSet\Metaboxes\ComingSoon as ComingSoonMetabox;
+use tiFy\Plugins\TbSet\Metaboxes\ComingSoonMetabox;
 use tiFy\Support\Proxy\Metabox;
 
 class ComingSoon

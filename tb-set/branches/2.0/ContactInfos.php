@@ -3,7 +3,7 @@
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\Plugins\TbSet\Contracts\TbSet;
-use tiFy\Plugins\TbSet\Metaboxes\ContactInfos as ContactInfosMetabox;
+use tiFy\Plugins\TbSet\Metaboxes\ContactInfos\ContactInfosMetabox;
 use tiFy\Support\Proxy\Metabox;
 
 class ContactInfos

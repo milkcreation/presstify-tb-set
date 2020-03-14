@@ -1,18 +1,19 @@
 <?php
 /**
  * @var tiFy\Contracts\Metabox\MetaboxView $this
+ * @var tiFy\Plugins\TbSet\Metaboxes\ContactInfos\ContactInfosField $field
  */
 ?>
 <?php $this->layout('layout-field'); ?>
 
 <?php $this->start('label'); ?>
-<?php _e('Adresse ligne #3', 'tify'); ?>
+<?php echo $field->getTitle(); ?>
 <?php $this->end(); ?>
 
 <?php echo field('text', [
     'attrs' => [
         'class' => '%s widefat',
     ],
-    'name'  => $this->name() . '[address3]',
-    'value' => $this->value('address3', ''),
+    'name'  => $field->getName(),
+    'value' => $field->getValue(),
 ]);
