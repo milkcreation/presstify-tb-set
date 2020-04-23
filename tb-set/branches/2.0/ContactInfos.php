@@ -30,20 +30,24 @@ class ContactInfos
         add_action('init', function () {
             if ($config = config('tb-set.contact-infos', true)) {
                 $defaults = [
-                    'admin'   => false,
+                    'admin' => false,
                 ];
 
                 config([
-                    'tb-set.contact-infos' => is_array($config) ? array_merge($defaults, $config) : $defaults
+                    'tb-set.contact-infos' => is_array($config) ? array_merge($defaults, $config) : $defaults,
                 ]);
 
                 if ($admin = config('tb-set.contact-infos.admin')) {
-                    $attrs = is_array($admin) ? $admin : [];
-                    $attrs['driver'] = 'tb-set.contact-infos';
-
+                    $defaults = ['params' => []];
                     if ($fields = config('tb-set.contact-infos.fields', [])) {
-                        $attrs['params'] = compact('fields');
+                        $defaults['params']['fields'] = $fields;
                     }
+                    if ($groups = config('tb-set.contact-infos.groups', [])) {
+                        $defaults['params']['groups'] = $groups;
+                    }
+
+                    $attrs = is_array($admin) ? array_merge($defaults, $admin) : $defaults;
+                    $attrs['driver'] = 'tb-set.contact-infos';
 
                     Metabox::add('tbSetContactInfos', $attrs)
                         ->setScreen('tify_options@options')
