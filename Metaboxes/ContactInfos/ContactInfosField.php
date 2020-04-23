@@ -45,7 +45,7 @@ class ContactInfosField extends AbstractContactInfosBag
      */
     public function render(): string
     {
-        $tmpl = ($grp = $this->get('group', '')) ? "field-{$grp}--{$this->getAlias()}" : "field-{$this->getAlias()}";
+        $tmpl = "field-{$this->getAlias()}";
 
         if (!$this->metabox->viewer()->exists($tmpl)) {
             $tmpl = 'tmpl-field';

@@ -113,6 +113,16 @@ class ContactInfosMetabox extends AbstractMetaboxDriver
                 'name'     => 'contact_website',
                 'title'    => __('Site internet', 'tify')
             ],
+            'map'      => [
+                'group' => 'contact',
+                'name'  => 'contact_map',
+                'title' => __('Carte', 'theme'),
+            ],
+            'maplink'  => [
+                'group' => 'contact',
+                'name'  => 'contact_maplink',
+                'title' => __('Lien vers la carte interactive', 'theme'),
+            ],
             'company'  => [
                 'group'    => 'company',
                 'name'     => 'company_name',
@@ -148,6 +158,11 @@ class ContactInfosMetabox extends AbstractMetaboxDriver
                 'name'     => 'company_cnil',
                 'title'    => __('Déclaration CNIL', 'tify')
             ],
+            'opening'  => [
+                'group' => 'company',
+                'name'  => 'company_opening',
+                'title' => __('Horaires d\'ouverture', 'theme'),
+            ]
         ];
 
         foreach ($fields as $alias => $field) {
