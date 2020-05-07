@@ -16,18 +16,15 @@ use WP_Admin_Bar;
  * USAGE :
  * Activation
  * ---------------------------------------------------------------------------------------------------------------------
- * Dans config/app.php ajouter \tiFy\Plugins\TbSet\TbSetServiceProvider à la liste des fournisseurs de services.
- * ex.
+ * Dans config/app.php 
+ * >> ajouter TbSetServiceProvider à la liste des fournisseurs de services.
  * <?php
- * ...
- * use tiFy\Plugins\TbSet\TbSetServiceProvider;
- * ...
  *
  * return [
  *      ...
  *      'providers' => [
  *          ...
- *          TbSetServiceProvider::class
+ *          tiFy\Plugins\TbSet\TbSetServiceProvider::class
  *          ...
  *      ]
  * ];
