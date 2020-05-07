@@ -7,7 +7,7 @@ return [
      */
     'coming-soon' => [
         'offline' => 'off',
-        'admin'   => true
+        'admin'   => false
     ],
 
     /**
