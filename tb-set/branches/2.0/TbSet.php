@@ -11,7 +11,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.35
+ * @version 2.0.36
  *
  * USAGE :
  * Activation
@@ -40,7 +40,7 @@ use WP_Admin_Bar;
 class TbSet implements TbSetContract
 {
     /**
-     * Instance de l'application
+     * Instance du gestionnaire d'injection de dépendances.
      * @var Container
      */
     protected $container;
@@ -52,11 +52,11 @@ class TbSet implements TbSetContract
      *
      * @return void
      */
-    public function __construct(?Container $container)
+    public function __construct(?Container $container = null)
     {
         $this->container = $container;
 
-        // Balises de site.
+        // - Balises de site.
         if ($app = $this->getContainer()) {
             $app->theme([
                 'tag.meta.author'   => 'TigreBlanc Digital',
@@ -64,7 +64,7 @@ class TbSet implements TbSetContract
             ]);
         }
 
-        // Personnalisation du logo de la barre d'administration et des sous entrées de menu.
+        // - Personnalisation du logo de la barre d'administration et des sous entrées de menu.
         add_action('admin_bar_menu', function (WP_Admin_Bar $wp_admin_bar) {
             $admin_bar_menu_logo = [
                 [
@@ -141,7 +141,7 @@ class TbSet implements TbSetContract
             }
         }, 11);
 
-        // Personnalisation du pied de page de l'interface d'administration.
+        // - Personnalisation du pied de page de l'interface d'administration.
         add_filter('admin_footer_text', function () {
             return sprintf(
                 __('Merci de faire de %s le partenaire de votre communication digitale', 'tify'),
@@ -157,29 +157,27 @@ class TbSet implements TbSetContract
             );
         }, 999999);
 
-        // Url du logo de l'interface de connection de Wordpress.
+        // - Url du logo de l'interface de connection de Wordpress.
         add_filter('login_headerurl', function () {
             return home_url('/');
         });
 
-        // Intitlulé du lien de l'interface de connection de Wordpress.
+        // - Intitlulé du lien de l'interface de connection de Wordpress.
         add_filter('login_headertext', function () {
             return get_bloginfo('name') . ' | ' . get_bloginfo('description');
         });
 
-        //Ajout du code google analytics dans le wp_head
+        // - Ajout du code google analytics dans le wp_head
         add_action('wp_head', function () {
             if ($ua = config('tb-set.ua-code')) {
-                echo View::getPlatesEngine()->setDirectory(__DIR__ . '/Resources/views/ua-code')
+                echo View::getPlatesEngine()->setDirectory($this->resources('/views/app/ua-code'))
                     ->render('index', compact('ua'));
             }
         }, 999999);
     }
 
     /**
-     * Récupération du conteneur d'injection de dépendances.
-     *
-     * @return Container|null
+     * @inheritDoc
      */
     public function getContainer(): ?Container
     {
@@ -187,11 +185,17 @@ class TbSet implements TbSetContract
     }
 
     /**
-     * Définition du conteneur d'injection de dépendances.
-     *
-     * @param Container $container
-     *
-     * @return static
+     * @inheritDoc
+     */
+    public function resources($path = ''): string
+    {
+        $path = $path ? '/' . ltrim($path, '/') : '';
+
+        return file_exists(__DIR__ . "/Resources{$path}") ? __DIR__ . "/Resources{$path}" : '';
+    }
+
+    /**
+     * @inheritDoc
      */
     public function setContainer(Container $container): TbSetContract
     {
