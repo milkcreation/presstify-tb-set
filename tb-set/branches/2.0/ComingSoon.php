@@ -28,7 +28,7 @@ class ComingSoon
         add_action('init', function () {
             if ($config = config('tb-set.coming-soon', true)) {
                 $defaults = [
-                    'admin'   => true,
+                    'admin'   => false,
                     'offline' => 'off',
                 ];
 
