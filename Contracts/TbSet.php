@@ -14,6 +14,15 @@ interface TbSet
     public function getContainer(): ?Container;
 
     /**
+     * Chemin absolu vers une ressources (fichier|répertoire).
+     *
+     * @param string $path Chemin relatif vers la ressource.
+     *
+     * @return string
+     */
+    public function resources($path = ''): string;
+
+    /**
      * Définition du conteneur d'injection de dépendances.
      *
      * @param Container $container

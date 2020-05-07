@@ -3,7 +3,7 @@
 namespace tiFy\Plugins\TbSet;
 
 use tiFy\Plugins\TbSet\Contracts\TbSet;
-use tiFy\Plugins\TbSet\Metaboxes\ComingSoonMetabox;
+use tiFy\Plugins\TbSet\Metabox\ComingSoonMetabox;
 use tiFy\Support\Proxy\Metabox;
 
 class ComingSoon
@@ -25,14 +25,13 @@ class ComingSoon
     {
         $this->manager = $manager;
 
-        Metabox::registerDriver('tb-set.coming-soon', new ComingSoonMetabox());
-
         add_action('init', function () {
             if ($config = config('tb-set.coming-soon', true)) {
                 $defaults = [
-                    'admin'   => false,
+                    'admin'   => true,
                     'offline' => 'off',
                 ];
+
                 config([
                     'tb-set.coming-soon' => is_array($config) ? array_merge($defaults, $config) : $defaults
                 ]);
@@ -44,11 +43,10 @@ class ComingSoon
                     ];
 
                     $attrs = is_array($admin) ? array_merge($defaults, $admin) : $defaults;
-                    $attrs['driver'] = 'tb-set.coming-soon';
 
-                    Metabox::add('tbSetComingSoon', $attrs)
-                        ->setScreen('tify_options@options')
-                        ->setContext('tab');
+                    Metabox::add('tbSetComingSoon', array_merge($attrs, [
+                        'driver' => (new ComingSoonMetabox())->setTbSet($this->manager)
+                    ]))->setScreen('tify_options@options')->setContext('tab');
                 }
             }
         });

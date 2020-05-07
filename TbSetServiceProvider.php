@@ -23,7 +23,6 @@ class TbSetServiceProvider extends ServiceProvider
     {
         add_action('after_setup_theme', function () {
             $this->getContainer()->get('tb-set.coming-soon');
-            $this->getContainer()->get('tb-set.contact-infos');
         });
     }
 
@@ -38,10 +37,6 @@ class TbSetServiceProvider extends ServiceProvider
 
         $this->getContainer()->share('tb-set.coming-soon', function () {
             return new ComingSoon($this->getContainer()->get('tb-set'));
-        });
-
-        $this->getContainer()->share('tb-set.contact-infos', function () {
-            return new ContactInfos($this->getContainer()->get('tb-set'));
         });
     }
 }
