@@ -11,7 +11,7 @@ use WP_Admin_Bar;
  * @desc Extension PresstiFy de jeux de fonctionnalités des sites TigreBlanc.
  * @author Jordy Manner <jordy@milkcreation.fr>
  * @package tiFy\Plugins\TbSet
- * @version 2.0.37
+ * @version 2.0.38
  *
  * USAGE :
  * Activation
@@ -55,9 +55,9 @@ class TbSet implements TbSetContract
 
         // - Balises de site.
         if ($app = $this->getContainer()) {
-            $app->theme([
-                'tag.meta.author'   => 'TigreBlanc Digital',
-                'tag.meta.designer' => 'TigreBlanc'
+            $app->params([
+                'meta-tags.meta.author'   => 'TigreBlanc Digital',
+                'meta-tags.meta.designer' => 'TigreBlanc'
             ]);
         }
 
