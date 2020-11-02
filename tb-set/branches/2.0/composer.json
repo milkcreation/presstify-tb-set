@@ -8,8 +8,8 @@
     "wordpress",
     "tigreblanc"
   ],
-  "homepage": "https://svn.tigreblanc.fr/presstify-plugins/tb-set",
-  "time": "2020-08-22",
+  "homepage": "https://svn.tigreblanc.fr/presstify-plugins/tb-set/",
+  "time": "2020-10-02",
   "license": "proprietary",
   "authors": [
     {
@@ -21,7 +21,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://composer.tigreblanc.fr/presstify"
+      "url": "https://composer.tigreblanc.fr/presstify/"
     }
   ],
   "require": {
