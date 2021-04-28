@@ -2,8 +2,8 @@
 
 namespace tiFy\Plugins\TbSet\Metabox;
 
+use tiFy\Metabox\MetaboxDriverInterface;
 use tiFy\Plugins\TbSet\Contracts\TbSet;
-use tiFy\Contracts\Metabox\MetaboxDriver as MetaboxDriverContract;
 use tiFy\Metabox\MetaboxDriver;
 
 class ComingSoonMetabox extends MetaboxDriver
@@ -22,7 +22,7 @@ class ComingSoonMetabox extends MetaboxDriver
     /**
      * @inheritDoc
      */
-    public function boot(): void
+    public function boot(): MetaboxDriverInterface
     {
         parent::boot();
 
@@ -46,7 +46,7 @@ class ComingSoonMetabox extends MetaboxDriver
      *
      * @return $this
      */
-    public function setTbSet(TbSet $tb_set): MetaboxDriverContract
+    public function setTbSet(TbSet $tb_set): MetaboxDriverInterface
     {
         $this->tbSet = $tb_set;
 

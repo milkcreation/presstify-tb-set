@@ -54,13 +54,13 @@ class TbSet implements TbSetContract
         $this->container = $container;
 
         // - Balises de site.
-        /** @var \App\App $app */
-        if ($app = $this->getContainer()) {
-            $app->config()->metaTags([
-                'author'   => 'TigreBlanc Digital',
-                'designer' => 'TigreBlanc'
-            ]);
-        }
+        add_action('wp_head', function () {
+            echo "<!-- TigreBlanc Copyright -->";
+            echo '<meta name="author" content="TigreBlanc">';
+            echo '<meta name="designer" content="TigreBlanc">';
+            echo '<meta name="copyright" content="© TigreBlanc" />';
+            echo "<!-- / TigreBlanc Copyright -->";
+        }, 1);
 
         // - Personnalisation du logo de la barre d'administration et des sous entrées de menu.
         add_action('admin_bar_menu', function (WP_Admin_Bar $wp_admin_bar) {
